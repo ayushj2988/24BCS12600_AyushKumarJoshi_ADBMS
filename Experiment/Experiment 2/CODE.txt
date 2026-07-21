@@ -1,0 +1,7 @@
+ANS1 :- select * from Arts union select * FROM Science;
+
+ANS2 :- select emp_name from employee UNION ALL select emp_name from pt_employee;
+
+ANS3 :- select f_name from fruit INTERSECT select inv_name from inventory;
+
+ANS4 :- select f_name from fruit except select inv_name from inventory;
