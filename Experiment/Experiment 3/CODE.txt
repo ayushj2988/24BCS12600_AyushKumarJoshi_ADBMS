@@ -1,0 +1,78 @@
+exp1
+
+
+SELECT department, 
+COUNT(CASE WHEN marks> 80 THEN 1 ELSE NULL END) as Dept_HighScore_Count
+FROM student
+GROUP BY department;
+
+3.2
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100) NOT NULL,
+    emp_salary DECIMAL(10, 2) NOT NULL,
+      emp_city VARCHAR(100) NOT NULL
+);
+
+INSERT INTO employees (emp_id, emp_name, emp_salary, emp_city) VALUES
+(101, 'Amit Sharma', 85000.00, 'Mumbai'),
+(102, 'Priya Patel', 95000.00, 'Mumbai'),
+(103, 'Rahul Verma', 60000.00, 'Delhi'),
+(104, 'Ananya Iyer', 110000.00, 'Bangalore'),
+(105, 'Vikram Singh', 55000.00, 'Delhi'),
+(106, 'Sneha Reddy', 105000.00, 'Bangalore'),
+(107, 'Rohan Das', 72000.00, 'Kolkata')
+
+-- AGGREGATE FUNCTION -> SUM(),MIN(),MAX(),AVG(),COUNT()
+
+-- (1)
+-- COUNT THE NUMBER OF EMPLOYEES IN Each CITY
+
+-- (I)
+Select emp_city,count(*) AS CNT from Employees
+group by emp_city
+
+-- (II)
+
+Select emp_city,count(EMP_ID) AS CNT from Employees
+group by emp_city
+
+
+-- COUNT THE NUMBER OF EMPLOYEE IN EACH CITY
+-- WHOSE SALARY IS >=90000 AND SORT ON THE BASIS OF COUNT IN DESC AND IF CNT ARE SAME THE SORT ON THE
+-- BASIS OF EMP_CITY IN DESC ORDER
+
+SELECT EMP_CITY,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS CNT
+FROM EMPLOYEES
+GROUP BY EMP_CITY
+ORDER BY CNT DESC,EMP_CITY DESC
+
+-- FIND THE AVERAGE EMPLOYEE SALARY IN EACH CITY
+
+SELECT EMP_CITY,AVG(EMP_SALARY)::NUMERIC(20,2) AS AVGS
+FROM EMPLOYEES
+GROUP BY EMP_CITY
+-- 
+-- FIND THE EMP_CITY  WHOSE AVG SALARY IS GRETAER THEN 70000
+
+SELECT EMP_CITY,AVG(EMP_SALARY)::NUMERIC(20,2) AS AVGS
+FROM EMPLOYEES
+GROUP BY EMP_CITY
+HAVING AVG(EMP_SALARY)>70000
+
+-- 
+-- DISTINCT
+
+SELECT DISTINCT EMP_CITY
+FROM EMPLOYEES
+
+
+SELECT COUNT(DISTINCT EMP_CITY)
+FROM EMPLOYEES
+
+
+
+Exp3.3
+
+select name as customers from customers c 
+where id not in (select customerID from orders);
